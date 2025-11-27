@@ -1,0 +1,1407 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sebastian Eusebio Bedmar Gade | AI & Digital Transformation</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500;9..144,600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-deep: #0c0c0f;
+            --bg-card: #141418;
+            --bg-elevated: #1a1a20;
+            --bg-hover: #222228;
+            --accent-primary: #e8c547;
+            --accent-secondary: #d4a942;
+            --accent-glow: rgba(232, 197, 71, 0.15);
+            --text-primary: #fafafa;
+            --text-secondary: #a0a0a8;
+            --text-muted: #68686f;
+            --border: #2a2a32;
+            --border-accent: #3a3a44;
+            --success: #4ade80;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background: var(--bg-deep);
+            color: var(--text-primary);
+            line-height: 1.7;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* Subtle grain texture */
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.7' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+            opacity: 0.025;
+            pointer-events: none;
+            z-index: 9999;
+        }
+
+        .container {
+            max-width: 1140px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            padding: 1rem 0;
+            background: rgba(12, 12, 15, 0.85);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid transparent;
+            transition: all 0.3s ease;
+        }
+
+        nav.scrolled {
+            border-bottom-color: var(--border);
+        }
+
+        .nav-inner {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-logo {
+            font-family: 'Fraunces', serif;
+            font-size: 1.25rem;
+            font-weight: 500;
+            color: var(--text-primary);
+            text-decoration: none;
+        }
+
+        .nav-logo span {
+            color: var(--accent-primary);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: color 0.2s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent-primary);
+        }
+
+        /* Hero */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding-top: 5rem;
+            position: relative;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: -20%;
+            width: 70%;
+            height: 100%;
+            background: radial-gradient(ellipse at 70% 30%, var(--accent-glow) 0%, transparent 50%);
+            pointer-events: none;
+        }
+
+        .hero-grid {
+            display: grid;
+            grid-template-columns: 1fr 380px;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            padding: 0.5rem 1rem;
+            border-radius: 100px;
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            margin-bottom: 1.5rem;
+            animation: fadeInUp 0.6s ease-out 0.1s both;
+        }
+
+        .hero-badge::before {
+            content: '';
+            width: 8px;
+            height: 8px;
+            background: var(--success);
+            border-radius: 50%;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; box-shadow: 0 0 0 0 rgba(74, 222, 128, 0.4); }
+            50% { opacity: 0.8; box-shadow: 0 0 0 6px rgba(74, 222, 128, 0); }
+        }
+
+        .hero h1 {
+            font-family: 'Fraunces', serif;
+            font-size: clamp(2.5rem, 5vw, 3.5rem);
+            font-weight: 400;
+            line-height: 1.15;
+            margin-bottom: 1.5rem;
+            animation: fadeInUp 0.6s ease-out 0.2s both;
+        }
+
+        .hero h1 .highlight {
+            color: var(--accent-primary);
+            font-style: italic;
+        }
+
+        .hero-subtitle {
+            font-size: 1.15rem;
+            color: var(--text-secondary);
+            max-width: 520px;
+            margin-bottom: 1rem;
+            animation: fadeInUp 0.6s ease-out 0.3s both;
+        }
+
+        .hero-tagline {
+            font-family: 'Fraunces', serif;
+            font-style: italic;
+            color: var(--accent-secondary);
+            font-size: 1.05rem;
+            margin-bottom: 2rem;
+            animation: fadeInUp 0.6s ease-out 0.35s both;
+        }
+
+        .hero-cta {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            animation: fadeInUp 0.6s ease-out 0.4s both;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.875rem 1.75rem;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            text-decoration: none;
+            transition: all 0.25s ease;
+            cursor: pointer;
+            border: none;
+        }
+
+        .btn-primary {
+            background: var(--accent-primary);
+            color: var(--bg-deep);
+        }
+
+        .btn-primary:hover {
+            background: var(--accent-secondary);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(232, 197, 71, 0.25);
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: var(--text-primary);
+            border: 1px solid var(--border-accent);
+        }
+
+        .btn-outline:hover {
+            border-color: var(--accent-primary);
+            color: var(--accent-primary);
+        }
+
+        /* Business Card Visual */
+        .hero-card {
+            background: linear-gradient(145deg, var(--bg-card) 0%, var(--bg-elevated) 100%);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 2.5rem;
+            position: relative;
+            overflow: hidden;
+            animation: fadeInUp 0.6s ease-out 0.5s both;
+        }
+
+        .hero-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--accent-primary), var(--accent-secondary));
+        }
+
+        .hero-card::after {
+            content: '';
+            position: absolute;
+            bottom: -50%;
+            right: -50%;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, var(--accent-glow) 0%, transparent 60%);
+            pointer-events: none;
+        }
+
+        .card-name {
+            font-family: 'Fraunces', serif;
+            font-size: 1.75rem;
+            font-weight: 500;
+            margin-bottom: 0.25rem;
+        }
+
+        .card-title {
+            color: var(--accent-primary);
+            font-size: 0.9rem;
+            font-weight: 600;
+            letter-spacing: 0.02em;
+            margin-bottom: 1.5rem;
+        }
+
+        .card-divider {
+            height: 1px;
+            background: var(--border);
+            margin: 1.5rem 0;
+        }
+
+        .card-contact {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .card-contact-item {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            text-decoration: none;
+            transition: color 0.2s ease;
+        }
+
+        .card-contact-item:hover {
+            color: var(--accent-primary);
+        }
+
+        .card-contact-item svg {
+            width: 18px;
+            height: 18px;
+            opacity: 0.7;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(24px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Section styling */
+        section {
+            padding: 6rem 0;
+            position: relative;
+        }
+
+        .section-header {
+            margin-bottom: 3rem;
+        }
+
+        .section-label {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            color: var(--accent-primary);
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+        }
+
+        .section-title {
+            font-family: 'Fraunces', serif;
+            font-size: clamp(1.75rem, 3vw, 2.25rem);
+            font-weight: 400;
+        }
+
+        /* Stats Banner */
+        .stats-banner {
+            background: var(--bg-card);
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+            padding: 3rem 0;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-value {
+            font-family: 'Fraunces', serif;
+            font-size: 2.5rem;
+            font-weight: 500;
+            color: var(--accent-primary);
+            line-height: 1;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            color: var(--text-muted);
+            font-size: 0.85rem;
+        }
+
+        /* About */
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1.2fr 1fr;
+            gap: 4rem;
+        }
+
+        .about-text p {
+            color: var(--text-secondary);
+            margin-bottom: 1.25rem;
+            font-size: 1.05rem;
+        }
+
+        .about-text p:first-of-type::first-letter {
+            font-family: 'Fraunces', serif;
+            font-size: 3.5rem;
+            float: left;
+            line-height: 1;
+            padding-right: 0.75rem;
+            color: var(--accent-primary);
+        }
+
+        .highlights-grid {
+            display: grid;
+            gap: 1rem;
+        }
+
+        .highlight-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .highlight-card:hover {
+            border-color: var(--accent-secondary);
+            transform: translateX(4px);
+        }
+
+        .highlight-metric {
+            font-family: 'Fraunces', serif;
+            font-size: 1.5rem;
+            color: var(--accent-primary);
+            margin-bottom: 0.25rem;
+        }
+
+        .highlight-text {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        /* Experience Timeline */
+        .experience {
+            background: var(--bg-card);
+        }
+
+        .timeline {
+            position: relative;
+            padding-left: 2rem;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: linear-gradient(to bottom, var(--accent-primary), var(--border) 30%, var(--border));
+        }
+
+        .timeline-item {
+            position: relative;
+            padding-bottom: 3rem;
+            padding-left: 2rem;
+        }
+
+        .timeline-item:last-child {
+            padding-bottom: 0;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -2rem;
+            top: 6px;
+            width: 12px;
+            height: 12px;
+            background: var(--bg-deep);
+            border: 2px solid var(--accent-primary);
+            border-radius: 50%;
+            transform: translateX(-5px);
+        }
+
+        .timeline-item.current::before {
+            background: var(--accent-primary);
+            box-shadow: 0 0 0 4px var(--accent-glow);
+        }
+
+        .timeline-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 1rem;
+            margin-bottom: 0.75rem;
+            flex-wrap: wrap;
+        }
+
+        .timeline-role {
+            font-family: 'Fraunces', serif;
+            font-size: 1.35rem;
+            font-weight: 500;
+        }
+
+        .timeline-date {
+            font-size: 0.85rem;
+            color: var(--accent-primary);
+            font-weight: 600;
+            white-space: nowrap;
+        }
+
+        .timeline-company {
+            color: var(--text-secondary);
+            font-size: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .timeline-company span {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        .timeline-achievements {
+            list-style: none;
+        }
+
+        .timeline-achievements li {
+            position: relative;
+            padding-left: 1.25rem;
+            margin-bottom: 0.5rem;
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+
+        .timeline-achievements li::before {
+            content: '→';
+            position: absolute;
+            left: 0;
+            color: var(--accent-secondary);
+        }
+
+        /* Services */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .service-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 2rem;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .service-card::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: 12px;
+            padding: 1px;
+            background: linear-gradient(135deg, var(--accent-primary), transparent 50%);
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .service-card:hover::before {
+            opacity: 1;
+        }
+
+        .service-card:hover {
+            transform: translateY(-4px);
+        }
+
+        .service-icon {
+            width: 48px;
+            height: 48px;
+            background: var(--accent-glow);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            margin-bottom: 1.25rem;
+        }
+
+        .service-card h3 {
+            font-family: 'Fraunces', serif;
+            font-size: 1.25rem;
+            font-weight: 500;
+            margin-bottom: 0.75rem;
+        }
+
+        .service-card p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+
+        /* Skills */
+        .skills {
+            background: var(--bg-card);
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .skill-category h3 {
+            font-family: 'Fraunces', serif;
+            font-size: 1.1rem;
+            font-weight: 500;
+            margin-bottom: 1rem;
+            padding-bottom: 0.75rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .skill-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .skill-tag {
+            background: var(--bg-elevated);
+            color: var(--text-secondary);
+            padding: 0.4rem 0.9rem;
+            border-radius: 6px;
+            font-size: 0.85rem;
+            border: 1px solid var(--border);
+            transition: all 0.2s ease;
+        }
+
+        .skill-tag:hover {
+            border-color: var(--accent-secondary);
+            color: var(--accent-primary);
+        }
+
+        .skill-tag.featured {
+            background: var(--accent-glow);
+            border-color: var(--accent-secondary);
+            color: var(--accent-primary);
+        }
+
+        /* Education */
+        .education-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .edu-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 1.75rem;
+        }
+
+        .edu-card h3 {
+            font-family: 'Fraunces', serif;
+            font-size: 1.1rem;
+            font-weight: 500;
+            margin-bottom: 0.25rem;
+        }
+
+        .edu-institution {
+            color: var(--accent-primary);
+            font-size: 0.9rem;
+            font-weight: 500;
+            margin-bottom: 0.25rem;
+        }
+
+        .edu-date {
+            color: var(--text-muted);
+            font-size: 0.85rem;
+        }
+
+        /* Certifications */
+        .cert-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+        }
+
+        .cert-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+            padding: 1rem;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+        }
+
+        .cert-icon {
+            width: 32px;
+            height: 32px;
+            background: var(--accent-glow);
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.9rem;
+            flex-shrink: 0;
+        }
+
+        .cert-info h4 {
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 0.15rem;
+        }
+
+        .cert-info p {
+            color: var(--text-muted);
+            font-size: 0.8rem;
+        }
+
+        /* Contact */
+        .contact {
+            background: var(--bg-card);
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+        }
+
+        .contact-info h3 {
+            font-family: 'Fraunces', serif;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .contact-info p {
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+        }
+
+        .contact-links {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .contact-link {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem 1.25rem;
+            background: var(--bg-elevated);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: all 0.2s ease;
+        }
+
+        .contact-link:hover {
+            border-color: var(--accent-primary);
+            color: var(--accent-primary);
+            transform: translateX(4px);
+        }
+
+        .contact-link svg {
+            width: 20px;
+            height: 20px;
+            opacity: 0.7;
+        }
+
+        .languages-card {
+            background: var(--bg-elevated);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 2rem;
+        }
+
+        .languages-card h3 {
+            font-family: 'Fraunces', serif;
+            font-size: 1.25rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .language-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.75rem 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .language-item:last-child {
+            border-bottom: none;
+        }
+
+        .language-name {
+            font-weight: 500;
+        }
+
+        .language-level {
+            color: var(--text-muted);
+            font-size: 0.85rem;
+        }
+
+        /* Footer */
+        footer {
+            padding: 2rem 0;
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            border-top: 1px solid var(--border);
+        }
+
+        footer a {
+            color: var(--accent-primary);
+            text-decoration: none;
+        }
+
+        /* Responsive */
+        @media (max-width: 968px) {
+            .hero-grid {
+                grid-template-columns: 1fr;
+                gap: 3rem;
+            }
+
+            .hero-card {
+                max-width: 400px;
+            }
+
+            .about-grid,
+            .contact-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .nav-links {
+                display: none;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Print styles */
+        @media print {
+            nav, .hero-cta, .btn {
+                display: none !important;
+            }
+
+            body {
+                background: white;
+                color: #1a1a1a;
+            }
+
+            section {
+                padding: 1.5rem 0;
+                page-break-inside: avoid;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav id="navbar">
+        <div class="container nav-inner">
+            <a href="#" class="nav-logo">Sebastian<span>.</span></a>
+            <ul class="nav-links">
+                <li><a href="#about">About</a></li>
+                <li><a href="#experience">Experience</a></li>
+                <li><a href="#services">Services</a></li>
+                <li><a href="#skills">Skills</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-grid">
+                <div class="hero-content">
+                    <div class="hero-badge">
+                        <span>Available for consulting engagements</span>
+                    </div>
+                    <h1>Sebastian Eusebio<br>Bedmar <span class="highlight">Gade</span></h1>
+                    <p class="hero-subtitle">
+                        Strategic program manager bridging technical innovation with business value. 
+                        Specializing in AI implementation, digital transformation, and scaling operations 
+                        from startup to enterprise.
+                    </p>
+                    <p class="hero-tagline">"No hype, no lock-in, just workflows that work."</p>
+                    <div class="hero-cta">
+                        <a href="#contact" class="btn btn-primary">Get in Touch</a>
+                        <a href="#experience" class="btn btn-outline">View Experience</a>
+                    </div>
+                </div>
+                <div class="hero-card">
+                    <div class="card-name">Sebastian Eusebio Bedmar Gade</div>
+                    <div class="card-title">MANAGER | AI & DIGITAL TRANSFORMATION</div>
+                    <div class="card-divider"></div>
+                    <div class="card-contact">
+                        <a href="tel:+4522172791" class="card-contact-item">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>
+                            <span>+45 22 17 27 91</span>
+                        </a>
+                        <a href="mailto:sebastianebg@gmail.com" class="card-contact-item">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+                            <span>sebastianebg@gmail.com</span>
+                        </a>
+                        <a href="https://linkedin.com/in/sebastiangade" target="_blank" class="card-contact-item">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+                            <span>linkedin.com/in/sebastiangade</span>
+                        </a>
+                        <a href="#" class="card-contact-item">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+                            <span>Copenhagen, Denmark</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Banner -->
+    <div class="stats-banner">
+        <div class="container">
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <div class="stat-value">12+</div>
+                    <div class="stat-label">Years in Tech</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value">€400K+</div>
+                    <div class="stat-label">Transformation Projects</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value">28x</div>
+                    <div class="stat-label">Revenue Growth (250K→7M DKK)</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value">1,000+</div>
+                    <div class="stat-label">Users Scaled (100% Retention)</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- About -->
+    <section id="about">
+        <div class="container">
+            <div class="about-grid">
+                <div class="about-text">
+                    <div class="section-header">
+                        <div class="section-label">About</div>
+                        <h2 class="section-title">Bridging Innovation with Business Value</h2>
+                    </div>
+                    <p>Experienced program manager and systems thinker who bridges technical innovation with business value creation. With a track record spanning startups, agencies, and enterprises, I bring a unique perspective on how technology creates value at every stage of growth.</p>
+                    <p>At INTELLISHORE, I lead complex data governance transformations for enterprise clients. Previously at BASE Life Science, I grew a migration practice from 250K DKK to 7M DKK and designed multi-agent AI applications for pharmaceutical companies. At Ledidi AS, as employee #5, I built the operational backbone that scaled the SaaS platform to over 1,000 users with 100% retention.</p>
+                    <p>Agnostic across technology stacks—cloud, infrastructure, SaaS, or automation platforms—I focus less on the specific vendor and more on creating workflows that deliver tangible business outcomes. My approach combines analytical rigor with stakeholder collaboration to deliver complex transformations.</p>
+                </div>
+                <div class="highlights-grid">
+                    <div class="highlight-card">
+                        <div class="highlight-metric">€400K+</div>
+                        <div class="highlight-text">Data governance transformation at Karo Healthcare, orchestrating 25+ stakeholders</div>
+                    </div>
+                    <div class="highlight-card">
+                        <div class="highlight-metric">250K → 7M DKK</div>
+                        <div class="highlight-text">Revenue growth for migration practice at Novo Nordisk over 2 years</div>
+                    </div>
+                    <div class="highlight-card">
+                        <div class="highlight-metric">Multi-Agent AI</div>
+                        <div class="highlight-text">Designed application projected to save millions in regulatory submission work</div>
+                    </div>
+                    <div class="highlight-card">
+                        <div class="highlight-metric">Employee #5</div>
+                        <div class="highlight-text">Scaled Ledidi from pre-revenue to 1,000+ users with 100% retention</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Experience -->
+    <section class="experience" id="experience">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-label">Experience</div>
+                <h2 class="section-title">Professional Journey</h2>
+            </div>
+            <div class="timeline">
+                <div class="timeline-item current">
+                    <div class="timeline-header">
+                        <h3 class="timeline-role">Manager</h3>
+                        <span class="timeline-date">Apr 2025 – Present</span>
+                    </div>
+                    <div class="timeline-company">INTELLISHORE <span>· Copenhagen</span></div>
+                    <ul class="timeline-achievements">
+                        <li>Executing €400K data governance transformation for Karo Healthcare across 3 critical domains</li>
+                        <li>Facilitating workshops with reference groups and conducting stakeholder interviews to validate data families and architecture</li>
+                        <li>Performing system analysis to map data objects, identify key processes, and uncover critical issues</li>
+                        <li>Synthesizing findings into actionable recommendations while coordinating 25+ stakeholder ecosystem</li>
+                    </ul>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-header">
+                        <h3 class="timeline-role">Associate Manager → Senior Consultant</h3>
+                        <span class="timeline-date">Feb 2023 – Apr 2025</span>
+                    </div>
+                    <div class="timeline-company">BASE Life Science <span>· Copenhagen (Infosys company)</span></div>
+                    <ul class="timeline-achievements">
+                        <li>Core member of G2M team for GenAI offerings—bridging technology and business value</li>
+                        <li>Grew migration practice revenue at Novo Nordisk from 250K DKK to 7M DKK over 2-year tenure</li>
+                        <li>Designed and implemented multi-agent AI application for Mersana Therapeutics, projected to save millions</li>
+                        <li>Product Owner for first subscription-based SaaS platform targeting EU pharmaceutical market (Zambon SpA)</li>
+                        <li>Led clinical migration projects for BioNTech, Novo Nordisk, and multiple pharmaceutical acquisitions</li>
+                    </ul>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-header">
+                        <h3 class="timeline-role">Head of Customer Experience</h3>
+                        <span class="timeline-date">Apr 2020 – Feb 2023</span>
+                    </div>
+                    <div class="timeline-company">Ledidi AS <span>· Copenhagen & Oslo</span></div>
+                    <ul class="timeline-achievements">
+                        <li>Employee #5: Scaled platform from pre-revenue to 1,000+ users with 100% retention</li>
+                        <li>Built complete revenue operations infrastructure including Stripe, Chargebee, and CRM automation</li>
+                        <li>Facilitated ISO 27001 certification and managed 5-person customer support/success team</li>
+                        <li>Integrated Segment and Mixpanel for product analytics, enabling data-driven decisions</li>
+                        <li>Designed product-led growth framework enabling enterprise-scale operations</li>
+                    </ul>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-header">
+                        <h3 class="timeline-role">Founder</h3>
+                        <span class="timeline-date">Jun 2017 – Feb 2023</span>
+                    </div>
+                    <div class="timeline-company">Online Agency <span>· Oslo & Copenhagen</span></div>
+                    <ul class="timeline-achievements">
+                        <li>CRM implementations and process automation for SMB clients</li>
+                        <li>Spearheaded integration of CRM solutions to optimize sales and marketing workflows</li>
+                        <li>Implemented automation technologies to streamline processes and improve operational agility</li>
+                    </ul>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-header">
+                        <h3 class="timeline-role">Account Manager → Technical Support</h3>
+                        <span class="timeline-date">Jun 2013 – Jul 2017</span>
+                    </div>
+                    <div class="timeline-company">Meebox <span>· Copenhagen (acquired by team.blue, now Scannet)</span></div>
+                    <ul class="timeline-achievements">
+                        <li>Managed 70-80% of new business revenue across 400+ cloud hosting customers</li>
+                        <li>Led client migration achieving 400% revenue increase post-acquisition</li>
+                        <li>Developed VPS service that remains core Scannet offering 8+ years later</li>
+                        <li>Progressed from Junior Technical Support to Account Manager</li>
+                    </ul>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-header">
+                        <h3 class="timeline-role">Founder</h3>
+                        <span class="timeline-date">Sep 2008 – Feb 2015</span>
+                    </div>
+                    <div class="timeline-company">Diversity Co. <span>· Copenhagen</span></div>
+                    <ul class="timeline-achievements">
+                        <li>Founded at age 12, grew from single gaming server to network across multiple games</li>
+                        <li>Managed dedicated team overseeing technical aspects, server maintenance, and community</li>
+                        <li>Early lessons in team leadership, community building, and scalable growth</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services -->
+    <section id="services">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-label">Services</div>
+                <h2 class="section-title">How I Create Value</h2>
+            </div>
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-icon">🤖</div>
+                    <h3>GenAI Implementation</h3>
+                    <p>Designing and deploying AI solutions in regulated environments—from multi-agent architectures to LLM integration. Proven track record with pharmaceutical clients on regulatory workflows.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">📊</div>
+                    <h3>Data Governance & Transformation</h3>
+                    <p>Enterprise-scale data transformations with stakeholder orchestration. System analysis, architecture mapping, and actionable recommendations that drive measurable outcomes.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">⚡</div>
+                    <h3>Revenue Operations</h3>
+                    <p>Building operational infrastructure that scales—CRM automation, subscription management, product analytics, and product-led growth frameworks.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">🔄</div>
+                    <h3>Digital Transformation</h3>
+                    <p>End-to-end program management for complex transformations. From startup scaling to enterprise modernization, bridging technical and business objectives.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">🎯</div>
+                    <h3>Product Management</h3>
+                    <p>0-to-1 product development, SaaS platform ownership, and go-to-market strategy. Experience as Product Owner for platforms in pharmaceutical and healthcare markets.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">🤝</div>
+                    <h3>Stakeholder Management</h3>
+                    <p>Orchestrating complex stakeholder ecosystems across enterprise organizations. Workshop facilitation, interview synthesis, and alignment-building for transformational initiatives.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills -->
+    <section class="skills" id="skills">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-label">Expertise</div>
+                <h2 class="section-title">Skills & Technologies</h2>
+            </div>
+            <div class="skills-grid">
+                <div class="skill-category">
+                    <h3>AI & Digital Innovation</h3>
+                    <div class="skill-tags">
+                        <span class="skill-tag featured">GenAI Implementation</span>
+                        <span class="skill-tag featured">Multi-agent Architecture</span>
+                        <span class="skill-tag">LLM Integration</span>
+                        <span class="skill-tag">Product-led Growth</span>
+                        <span class="skill-tag">Revenue Ops Automation</span>
+                    </div>
+                </div>
+                <div class="skill-category">
+                    <h3>Program Delivery</h3>
+                    <div class="skill-tags">
+                        <span class="skill-tag featured">Data Governance</span>
+                        <span class="skill-tag featured">Clinical Data Migrations</span>
+                        <span class="skill-tag">System Analysis</span>
+                        <span class="skill-tag">Workshop Facilitation</span>
+                        <span class="skill-tag">Stakeholder Orchestration</span>
+                    </div>
+                </div>
+                <div class="skill-category">
+                    <h3>Business Impact</h3>
+                    <div class="skill-tags">
+                        <span class="skill-tag">0-to-1 Product Development</span>
+                        <span class="skill-tag">Revenue Scaling</span>
+                        <span class="skill-tag">P&L Ownership</span>
+                        <span class="skill-tag">Enterprise Sales Enablement</span>
+                        <span class="skill-tag">Client Retention</span>
+                    </div>
+                </div>
+                <div class="skill-category">
+                    <h3>Technical Foundation</h3>
+                    <div class="skill-tags">
+                        <span class="skill-tag">Cloud Platforms (GCP, Azure)</span>
+                        <span class="skill-tag">CRM/ERP Integration</span>
+                        <span class="skill-tag">API Development</span>
+                        <span class="skill-tag">GxP Validation</span>
+                        <span class="skill-tag">ISO 27001</span>
+                    </div>
+                </div>
+                <div class="skill-category">
+                    <h3>Tools & Platforms</h3>
+                    <div class="skill-tags">
+                        <span class="skill-tag">Chargebee</span>
+                        <span class="skill-tag">Segment</span>
+                        <span class="skill-tag">Mixpanel</span>
+                        <span class="skill-tag">Intercom</span>
+                        <span class="skill-tag">Stripe</span>
+                        <span class="skill-tag">Salesforce</span>
+                    </div>
+                </div>
+                <div class="skill-category">
+                    <h3>Methodologies</h3>
+                    <div class="skill-tags">
+                        <span class="skill-tag featured">SAFe 6 Certified</span>
+                        <span class="skill-tag">Agile/Scrum</span>
+                        <span class="skill-tag">Design Thinking</span>
+                        <span class="skill-tag">Digital Transformation</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Education & Certifications -->
+    <section id="education">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-label">Education & Certifications</div>
+                <h2 class="section-title">Academic Background</h2>
+            </div>
+
+            <div class="education-grid" style="margin-bottom: 3rem;">
+                <div class="edu-card">
+                    <h3>Graduate Diploma in Business Administration</h3>
+                    <div class="edu-institution">Copenhagen Business School</div>
+                    <div class="edu-date">2022 – 2024 · Organization & Management</div>
+                </div>
+                <div class="edu-card">
+                    <h3>Academy Profession (AP)</h3>
+                    <div class="edu-institution">Copenhagen Business Academy</div>
+                    <div class="edu-date">2019 · Leadership & Management</div>
+                </div>
+                <div class="edu-card">
+                    <h3>Professional Certificate in Computer Science</h3>
+                    <div class="edu-institution">Harvard University (HarvardX)</div>
+                    <div class="edu-date">Online</div>
+                </div>
+                <div class="edu-card">
+                    <h3>Computer Science Specialization</h3>
+                    <div class="edu-institution">University of Michigan</div>
+                    <div class="edu-date">Online</div>
+                </div>
+            </div>
+
+            <h3 style="font-family: 'Fraunces', serif; font-size: 1.25rem; margin-bottom: 1.5rem;">Professional Certifications</h3>
+            <div class="cert-list">
+                <div class="cert-item">
+                    <div class="cert-icon">🎓</div>
+                    <div class="cert-info">
+                        <h4>AI: Implications for Business Strategy</h4>
+                        <p>MIT Sloan School of Management · 2024</p>
+                    </div>
+                </div>
+                <div class="cert-item">
+                    <div class="cert-icon">📋</div>
+                    <div class="cert-info">
+                        <h4>Certified SAFe 6 Practitioner</h4>
+                        <p>Scaled Agile, Inc · 2023</p>
+                    </div>
+                </div>
+                <div class="cert-item">
+                    <div class="cert-icon">📊</div>
+                    <div class="cert-info">
+                        <h4>PMI Certification</h4>
+                        <p>Project Management Institute · 2024</p>
+                    </div>
+                </div>
+                <div class="cert-item">
+                    <div class="cert-icon">💡</div>
+                    <div class="cert-info">
+                        <h4>Digital Product Management Specialization</h4>
+                        <p>UVA Darden School of Business · 2021-2022</p>
+                    </div>
+                </div>
+                <div class="cert-item">
+                    <div class="cert-icon">🔄</div>
+                    <div class="cert-info">
+                        <h4>Digital Transformation</h4>
+                        <p>UVA Darden School of Business</p>
+                    </div>
+                </div>
+                <div class="cert-item">
+                    <div class="cert-icon">🎨</div>
+                    <div class="cert-info">
+                        <h4>Design Thinking for Innovation</h4>
+                        <p>UVA Darden School of Business</p>
+                    </div>
+                </div>
+                <div class="cert-item">
+                    <div class="cert-icon">📈</div>
+                    <div class="cert-info">
+                        <h4>Product Analytics Certification (PAC)™</h4>
+                        <p>Pendo/Mind the Product</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact -->
+    <section class="contact" id="contact">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-label">Contact</div>
+                <h2 class="section-title">Let's Work Together</h2>
+            </div>
+            <div class="contact-grid">
+                <div class="contact-info">
+                    <h3>Get in Touch</h3>
+                    <p>Open to discussing consulting engagements, complex transformations, and AI implementation projects. Based in Copenhagen, working with clients across Europe.</p>
+                    <div class="contact-links">
+                        <a href="tel:+4522172791" class="contact-link">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>
+                            <span>+45 22 17 27 91</span>
+                        </a>
+                        <a href="mailto:sebastianebg@gmail.com" class="contact-link">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+                            <span>sebastianebg@gmail.com</span>
+                        </a>
+                        <a href="https://linkedin.com/in/sebastiangade" target="_blank" class="contact-link">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+                            <span>linkedin.com/in/sebastiangade</span>
+                        </a>
+                        <a href="#" class="contact-link">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+                            <span>Copenhagen, Denmark</span>
+                        </a>
+                    </div>
+                </div>
+                <div class="languages-card">
+                    <h3>Languages</h3>
+                    <div class="language-item">
+                        <span class="language-name">Danish</span>
+                        <span class="language-level">Native</span>
+                    </div>
+                    <div class="language-item">
+                        <span class="language-name">English</span>
+                        <span class="language-level">Native / Bilingual</span>
+                    </div>
+                    <div class="language-item">
+                        <span class="language-name">Norwegian</span>
+                        <span class="language-level">Full Professional</span>
+                    </div>
+                    <div class="language-item">
+                        <span class="language-name">Swedish</span>
+                        <span class="language-level">Limited Working</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>© 2025 Sebastian Eusebio Bedmar Gade · Copenhagen, Denmark · <a href="mailto:sebastianebg@gmail.com">sebastianebg@gmail.com</a></p>
+        </div>
+    </footer>
+
+    <script>
+        // Navbar scroll effect
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // Intersection Observer for scroll animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.timeline-item, .service-card, .skill-category, .highlight-card, .edu-card, .cert-item').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(20px)';
+            el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+            observer.observe(el);
+        });
+
+        // Smooth scroll for navigation
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
